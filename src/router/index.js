@@ -1,21 +1,57 @@
-import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import { createRouter, createWebHashHistory } from "vue-router";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),
+  linkActiveClass: "active",
   routes: [
     {
       path: "/",
-      name: "home",
-      component: HomeView,
+      component: () => import("../views/FrontLayout.vue"),
+      children: [
+        {
+          path: "home",
+          name: "Home",
+          component: () => import("../views/front/HomeView.vue"),
+        },
+        {
+          path: "about",
+          name: "About",
+          component: () => import("../views/front/AboutView.vue"),
+        },
+        {
+          path: "cart",
+          name: "Cart",
+          component: () => import("../views/front/CartView.vue"),
+        },
+        {
+          path: "products",
+          name: "Products",
+          component: () => import("../views/front/ProductsView.vue"),
+        },
+        {
+          path: "product/:id",
+          name: "Product",
+          component: () => import("../views/front/ProductView.vue"),
+        },
+        {
+          path: "login",
+          component: () => import("../views/front/LoginView.vue"),
+        },
+      ],
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
+      path: "/admin",
+      component: () => import("../views/DashBoard.vue"),
+      children: [
+        {
+          path: "products",
+          component: () => import("../views/admin/AdminProducts.vue"),
+        },
+        {
+          path: "orders",
+          component: () => import("../views/admin/AdminOrders.vue"),
+        },
+      ],
     },
   ],
 });
