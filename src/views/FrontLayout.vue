@@ -1,5 +1,5 @@
 <template>
-  這是前台頁面
+  Hi!這是前台頁面
   <hr />
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
