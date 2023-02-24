@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="#">桌遊販電</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100">
           <li class="nav-item">
             <RouterLink to="/home" class="me-3 nav-link">Home</RouterLink>
           </li>
@@ -20,7 +20,7 @@
           <li class="nav-item">
             <RouterLink to="/cart" class="me-3 nav-link">購物車</RouterLink>
           </li>
-          <li class="nav-item">
+          <li class="nav-item ms-auto">
             <RouterLink to="/admin" class="me-3 nav-link">後台</RouterLink>
           </li>
           <li class="nav-item">
