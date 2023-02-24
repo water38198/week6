@@ -88,28 +88,25 @@ export default {
   data() {
     return {
       cart: {},
-      loader: {},
     };
   },
   methods: {
     getCart() {
-      this.loader = this.$loading.show();
+      let loader = this.$loading.show();
       this.$http
         .get(`${VITE_URL}/v2/api/${VITE_PATH}/cart`)
         .then((res) => {
           this.cart = res.data.data;
-          this.loader.hide();
+          loader.hide();
         })
         .catch((err) => {
           console.log(err);
         });
     },
     deleteCartItem(id) {
-      this.loader = this.$loading.show();
       this.$http
         .delete(`${VITE_URL}/v2/api/${VITE_PATH}/cart/${id}`)
         .then(() => {
-          alert("刪除成功");
           this.getCart();
         })
         .catch((err) => {

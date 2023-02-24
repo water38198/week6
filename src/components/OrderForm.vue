@@ -80,7 +80,13 @@
           <ErrorMessage name="地址" class="invalid-feedback"></ErrorMessage>
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-primary w-100">送出</button>
+          <button
+            type="submit"
+            class="btn btn-primary w-100"
+            :disabled="!cart.carts?.length"
+          >
+            送出
+          </button>
         </div>
       </VForm>
     </div>
@@ -90,18 +96,6 @@
 <script>
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-// import { Form, Field, ErrorMessage, defineRule, configure } from "vee-validate";
-// import AllRules from "@vee-validate/rules";
-// import { localize, setLocale } from "@vee-validate/i18n";
-// import zhTW from "@vee-validate/i18n/dist/locale/zh_TW.json";
-// Object.keys(AllRules).forEach((rule) => {
-//   defineRule(rule, AllRules[rule]);
-// });
-// configure({
-//   generateMessage: localize({ zh_TW: zhTW }),
-//   validateOnInput: true,
-// });
-// setLocale("zh_TW");
 export default {
   data() {
     return {
@@ -128,6 +122,6 @@ export default {
       return phoneNumber.test(value) ? true : "需要正確的電話號碼";
     },
   },
-  props: ["getCart"],
+  props: ["getCart", "cart"],
 };
 </script>

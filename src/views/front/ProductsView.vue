@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="product in productList" :key="product.key">
+        <tr v-for="product in productList" :key="product.id" :ref="product.id">
           <td style="width: 200px">
             <img
               :src="product.imageUrl"
@@ -37,6 +37,7 @@
               class="me-3 btn btn-outline-primary"
               >查看更多</RouterLink
             >
+
             <button
               type="button"
               class="btn btn-outline-danger"
@@ -58,16 +59,16 @@ export default {
   data() {
     return {
       productList: [],
-      loader: {},
     };
   },
   methods: {
     getProducts() {
+      let loader = this.$loading.show();
       this.$http
         .get(`${VITE_URL}/v2/api/${VITE_PATH}/products`)
         .then((res) => {
           this.productList = res.data.products;
-          this.loader.hide();
+          loader.hide();
         })
         .catch((err) => {
           console.log(err);
@@ -75,10 +76,13 @@ export default {
     },
     addToCart(product_id, qty = 1) {
       const data = { product_id, qty };
+      let loader = this.$loading.show({
+        loader: "dots",
+      });
       this.$http
         .post(`${VITE_URL}/v2/api/${VITE_PATH}/cart`, { data })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          loader.hide();
         })
         .catch((err) => {
           console.log(err);
@@ -86,7 +90,6 @@ export default {
     },
   },
   mounted() {
-    this.loader = this.$loading.show();
     this.getProducts();
   },
   components: { RouterLink },

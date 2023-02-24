@@ -44,6 +44,11 @@
           加入購物車
         </button>
       </div>
+      <div class="text-start">
+        <button class="btn btn-outline-secondary w-25" @click="this.$router.go(-1)">
+          返回
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -62,11 +67,12 @@ export default {
   methods: {
     getProduct() {
       const { id } = this.$route.params;
+      let loader = this.$loading.show();
       this.$http
         .get(`${VITE_URL}/v2/api/${VITE_PATH}/product/${id}`)
         .then((res) => {
           this.product = res.data.product;
-          this.loader.hide();
+          loader.hide();
         })
         .catch((err) => console.log(err));
     },
@@ -83,7 +89,6 @@ export default {
     },
   },
   mounted() {
-    this.loader = this.$loading.show();
     this.getProduct();
   },
 };
