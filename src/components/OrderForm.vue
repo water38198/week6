@@ -1,7 +1,7 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-4">
-      <VFrom
+      <VForm
         v-slot="{ errors }"
         @submit="sentOrder"
         class="my-5"
@@ -9,7 +9,7 @@
       >
         <div class="mb-3">
           <label for="name" class="h5">姓名:</label>
-          <Field
+          <VField
             id="name"
             name="姓名"
             type="text"
@@ -18,12 +18,12 @@
             placeholder="請輸入 姓名"
             rules="required"
             v-model="user.name"
-          ></Field>
+          ></VField>
           <ErrorMessage name="姓名" class="invalid-feedback"></ErrorMessage>
         </div>
         <div class="mb-3">
           <label for="tel" class="h5">電話:</label>
-          <Field
+          <VField
             id="tel"
             name="電話"
             type="text"
@@ -32,12 +32,12 @@
             placeholder="請輸入 電話"
             :rules="isPhone"
             v-model="user.tel"
-          ></Field>
+          ></VField>
           <ErrorMessage name="電話" class="invalid-feedback"></ErrorMessage>
         </div>
         <div class="mb-3">
           <label for="email" class="h5">電子郵件:</label>
-          <Field
+          <VField
             id="email"
             name="電子郵件"
             type="email"
@@ -46,12 +46,12 @@
             placeholder="請輸入 電子郵件"
             rules="required||email"
             v-model="user.email"
-          ></Field>
+          ></VField>
           <ErrorMessage name="電子郵件" class="invalid-feedback"></ErrorMessage>
         </div>
         <div class="mb-3">
           <label for="address" class="h5">地址:</label>
-          <Field
+          <VField
             id="address"
             name="地址"
             type="text"
@@ -60,12 +60,12 @@
             placeholder="請輸入 地址"
             rules="required"
             v-model="user.address"
-          ></Field>
+          ></VField>
           <ErrorMessage name="地址" class="invalid-feedback"></ErrorMessage>
         </div>
         <div class="mb-3">
           <label for="message" class="h5">附註:</label>
-          <Field
+          <VField
             id="message"
             name="附註"
             type="text"
@@ -76,13 +76,13 @@
             as="textarea"
             cols="10"
             rows="10"
-          ></Field>
+          ></VField>
           <ErrorMessage name="地址" class="invalid-feedback"></ErrorMessage>
         </div>
         <div class="text-center">
           <button type="submit" class="btn btn-primary w-100">送出</button>
         </div>
-      </VFrom>
+      </VForm>
     </div>
   </div>
 </template>
@@ -90,28 +90,23 @@
 <script>
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-import { Form, Field, ErrorMessage, defineRule, configure } from "vee-validate";
-import AllRules from "@vee-validate/rules";
-import { localize, setLocale } from "@vee-validate/i18n";
-import zhTW from "@vee-validate/i18n/dist/locale/zh_TW.json";
-Object.keys(AllRules).forEach((rule) => {
-  defineRule(rule, AllRules[rule]);
-});
-configure({
-  generateMessage: localize({ zh_TW: zhTW }),
-  validateOnInput: true,
-});
-setLocale("zh_TW");
+// import { Form, Field, ErrorMessage, defineRule, configure } from "vee-validate";
+// import AllRules from "@vee-validate/rules";
+// import { localize, setLocale } from "@vee-validate/i18n";
+// import zhTW from "@vee-validate/i18n/dist/locale/zh_TW.json";
+// Object.keys(AllRules).forEach((rule) => {
+//   defineRule(rule, AllRules[rule]);
+// });
+// configure({
+//   generateMessage: localize({ zh_TW: zhTW }),
+//   validateOnInput: true,
+// });
+// setLocale("zh_TW");
 export default {
   data() {
     return {
       user: {},
     };
-  },
-  components: {
-    VFrom: Form,
-    Field,
-    ErrorMessage,
   },
   methods: {
     sentOrder() {

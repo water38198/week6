@@ -1,38 +1,41 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-4">
-      <form action="" class="mt-5">
-        <h2 class="text-center">登入</h2>
-        <div class="mb-4">
-          <label for="username" class="form-label fs-5">使用者名稱:</label>
-          <input
+      <h2 class="text-center">登入</h2>
+
+      <VForm v-slot="{ errors }" @submit="login" class="my-5">
+        <div class="mb-3">
+          <label for="account" class="h5">帳號:</label>
+          <VField
+            id="account"
+            name="帳號"
             type="text"
             class="form-control"
-            id="username"
-            placeholder="請輸入使用者名稱"
-            v-model.trim="user.username"
-          />
+            :class="{ 'is-invalid': errors['帳號'] }"
+            placeholder="請輸入 帳號"
+            rules="required|email"
+            v-model="user.account"
+          ></VField>
+          <ErrorMessage name="帳號" class="invalid-feedback"></ErrorMessage>
         </div>
-        <div class="mb-4">
-          <label for="password" class="form-label fs-5">密碼:</label>
-          <input
+        <div class="mb-3">
+          <label for="password" class="h5">密碼:</label>
+          <VField
+            id="password"
+            name="密碼"
             type="password"
             class="form-control"
-            id="password"
-            placeholder="請輸入使用者名稱"
-            v-model.trim="user.password"
-          />
+            :class="{ 'is-invalid': errors['密碼'] }"
+            placeholder="請輸入 密碼"
+            rules="required"
+            v-model="user.password"
+          ></VField>
+          <ErrorMessage name="密碼" class="invalid-feedback"></ErrorMessage>
         </div>
-        <div>
-          <button
-            type="button"
-            class="btn btn-primary btn-lg w-100"
-            @click="login"
-          >
-            確定
-          </button>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary w-100">登入</button>
         </div>
-      </form>
+      </VForm>
     </div>
   </div>
 </template>
@@ -50,7 +53,7 @@ export default {
     login() {
       this.$http
         .post(`${VITE_URL}/v2/admin/signin`, {
-          username: this.user.username,
+          username: this.user.account,
           password: this.user.password,
         })
         .then((res) => {

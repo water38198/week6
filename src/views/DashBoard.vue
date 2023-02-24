@@ -58,7 +58,6 @@ export default {
       this.$http
         .post(`${VITE_URL}/v2/api/user/check`)
         .then((res) => {
-          console.log(res);
           if (!res.data.success) {
             this.$router.push("/login");
           }
